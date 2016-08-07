@@ -1,0 +1,24 @@
+{
+  "name": "wftest",
+  "description": "",
+  "main": "app/app.js",
+  "authors": [
+    "wf"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/baibbc/wftest",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "font-awesome": "^4.6.3"
+  }
+}

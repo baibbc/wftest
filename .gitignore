@@ -1,0 +1,21 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# dependency directories
+bower_components
+node_modules
+gulp
+src
+
+# Generated dependency files
+app/plugins.*
+
+# JetBrains files
+*.iml
+.idea
