@@ -1,0 +1,22 @@
+.page-header
+  h2 模板管理
+table.table.table-bordered.text-center
+  thead.table-thead
+    tr
+      th.th-cursor-pointer.text-center 序號
+      th.th-cursor-pointer.text-center 官方編號
+      th.th-cursor-pointer.text-center 標題
+      th.th-cursor-pointer.text-center 行業代碼
+      th.th-cursor-pointer.text-center 主行業
+      th.th-cursor-pointer.text-center 副行業
+      th.th-cursor-pointer.text-center 操作
+  tbody
+    tr(ng-repeat = 'data in ui.dataArr')
+      td {{$index + 1}}
+      td {{data.template_id_short}}
+      td {{data.name}}
+      td {{data.industry_code}}
+      td {{data.main_industry}}
+      td {{data.vice_industry}}
+      td
+        a(href='javascript:;' ng-click='getDetail($index)') 編輯

@@ -1,0 +1,23 @@
+.page-header
+  h2 公眾號列表
+table.table.table-bordered.text-center
+  thead.table-thead
+    tr
+      th.th-cursor-pointer.text-center #
+      th.th-cursor-pointer.text-center 公眾號名稱
+      th.th-cursor-pointer.text-center 公眾號ID
+      th.th-cursor-pointer.text-center 類型
+      th.th-cursor-pointer.text-center 錄入日期
+      th.th-cursor-pointer.text-center 操作
+  tbody
+    tr(ng-repeat = 'wechat in ui.wechats')
+      td {{$index + 1}}
+      td {{wechat.name}}
+      td {{wechat.weixin_id}}
+      td
+        span.label.label-info {{wechat.version_name}}
+        | 
+        span.label.label-danger.margin-left-md {{wechat.type_name}}
+      td {{wechat.created_at_text}}
+      td
+        a(href='javascript:;')

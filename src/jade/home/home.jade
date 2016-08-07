@@ -1,0 +1,30 @@
+.container
+  .row
+    //這是註釋
+    //-註釋不輸出
+    .col-md-5
+      uib-tabset(active='active')
+        uib-tab(index='0', heading='登錄')
+          br
+          div(ng-keyup="keyDownLogin($event)")
+            .form-group
+              input.form-control(type='email', placeholder='郵箱', ng-model='ui.email')
+            .form-group
+              input.form-control(type='password', placeholder='密碼', ng-model='ui.pwd')
+            .form-group(ng-if="ui.hasErr == true")
+              span.text-danger 用戶或密碼錯誤
+            .form-group
+              button.btn.btn-info(type='submit' ng-click='doLogin()') 登錄
+            .form-group
+              .checkbox
+                label
+                  input(type='checkbox')
+                  | 兩周內自動登錄
+        uib-tab(index='1', heading='註冊')
+          br
+          .form-group
+            input.form-control(type='email', placeholder='郵箱')
+          .form-group
+            input.form-control(type='password', placeholder='密碼')
+          .form-group
+            button.btn.btn-default(type='submit') 註冊

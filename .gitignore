@@ -10,8 +10,6 @@ pids
 # dependency directories
 bower_components
 node_modules
-gulp
-src
 
 # Generated dependency files
 app/plugins.*
