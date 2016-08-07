@@ -1,0 +1,207 @@
+@function pxTorem($px){//$px为需要转换的字号
+  @if unitless($px){
+    @return $px;
+  } @else{
+    @return $px / $default-font-size * 1rem;
+  }
+  //@return $px;
+}
+
+//兼容性字体大小
+@mixin font-size($size){
+  font-size:$size;
+  font-size:pxTorem($size);
+}
+
+@mixin width($width){
+  width:$width;
+  width:pxTorem($width);
+}
+
+@mixin height($height, $line-height:false){
+  height:$height;
+  height:pxTorem($height);
+  @if $line-height{
+    line-height:$height;
+    line-height:pxTorem($height);
+  }
+}
+
+@mixin box($property, $top, $right:false, $bottom:false, $left:false){
+  @if $left{
+    #{$property}:$top $right $bottom $left;
+    #{$property}:pxTorem($top) pxTorem($right) pxTorem($bottom) pxTorem($left);
+  } @else{
+    @if $right{
+      #{$property}:$top $right;
+      #{$property}:pxTorem($top) pxTorem($right);
+    } @else{
+      #{$property}:$top;
+      #{$property}:pxTorem($top);
+    }
+  }
+}
+
+
+// Single side border-radius
+@mixin border-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-radius: $radius;
+  }
+}
+
+
+@mixin border-top-radius($radius) {
+  border-top-right-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin border-right-radius($radius) {
+  border-bottom-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+  border-bottom-right-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin border-left-radius($radius) {
+  border-bottom-left-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin hover-focus-active {
+  @if $enable-hover-media-query {
+    &:focus,
+    &:active {
+      @content
+    }
+    @include hover { @content }
+  }
+  @else {
+    &:focus,
+    &:active,
+    &:hover {
+      @content
+    }
+  }
+}
+
+//兼容性透明度
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin px2rem($property,$px-values,$baseline-px:16px,$support-for-ie:false){
+  //Conver the baseline into rems
+  $baseline-rem: $baseline-px / 1rem * 1;
+  //Print the first line in pixel values
+  @if $support-for-ie {
+    #{$property}: $px-values;
+  }
+  //if there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number"{
+    #{$property}: $px-values / $baseline-rem;
+  }
+  @else {
+    //Create an empty list that we can dump values into
+    $rem-values:();
+    @each $value in $px-values{
+      // If the value is zero or not a number, return it
+      @if $value == 0 or type-of($value) != "number"{
+        $rem-values: append($rem-values, $value / $baseline-rem);
+      }
+    }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values;
+  }
+}
+
+// @each @for @while
+@mixin col-sm($width: 50%){
+  @if type-of($width) != number {
+    //抛出错误
+    @error "$width必须是一个数值类型:#{$width}";
+  }
+
+  @if not unitless($width){
+    @if unit($width) != "%" {
+      @error "$width应该是个百比";
+    }
+  } @else {
+    @warn "$width应该是一个百分值";
+    $width:(percentage($width)) / 100;
+  }
+
+  @media (min-width:768px){
+    width:$width;
+    float:left;
+  }
+
+}
+
+//Example: @include prefixer(border-radius, $radius, webkit spec);
+//----------------------------------------
+$prefix-for-webkit: true !default;
+$prefix-for-mozilla: true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera: true !default;
+$prefix-for-spec: true !default;
+
+//浏览器前缀
+@mixin prefixer ($property, $value, $prefixes: webkit moz o ms spec) {
+  @each $prefix in $prefixes {
+
+    @if $prefix == webkit and $prefix-for-webkit == true {
+      -webkit-#{$property}: $value;
+    }
+    @else if $prefix == moz and $prefix-for-mozilla == true {
+      -moz-#{$property}: $value;
+    }
+    @else if $prefix == ms and $prefix-for-microsoft == true {
+      -ms-#{$property}: $value;
+    }
+    @else if $prefix == o and $prefix-for-opera == true {
+      -o-#{$property}: $value;
+    }
+    @else if $prefix == spec and $prefix-for-spec == true {
+      #{$property}: $value;
+    }
+    @else {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+
+//动画keyframes
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    $b: '-webkit-' !global;
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    $b: '-moz-' !global;
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    $b: '-ms-' !global;
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    $b: '-o-' !global;
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    $b: '' !global;
+    @content;
+  }
+}
+
+//@mixin skewX($degrees) {
+//  @include prefixer(transform, skewX($degrees), webkit moz o ms spec);
+//  -webkit-backface-visibility: hidden;
+//}

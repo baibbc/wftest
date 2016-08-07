@@ -1,28 +1,11 @@
-app = angular.module 'myApp', [
+app = angular.module 'wfApp', [
   'ui.router'
-  'ui.bootstrap'
-  'dialogs.main'
-  'pascalprecht.translate'
 ]
 app.run ($rootScope, $state, $stateParams, $timeout) ->
 
-app.config ($stateProvider, $urlRouterProvider, $translateProvider) ->
-  # $urlRouterProvider.when '/', '//wechat'
-  $urlRouterProvider.otherwise '//wechat'
-
-  $translateProvider.translations 'en',
-    DIALOGS_OK: 'OK'
-    DIALOGS_YES: 'YES'
-    DIALOGS_NO: 'NO'
-    DIALOGS_CLOSE: 'CLOSE'
-
-  $translateProvider.translations 'cn',
-    DIALOGS_OK: '確定'
-    DIALOGS_YES: '是'
-    DIALOGS_NO: '否'
-    DIALOGS_CLOSE: '關閉'
-    
-  $translateProvider.preferredLanguage 'cn'
+app.config ($stateProvider, $urlRouterProvider) ->
+  $urlRouterProvider.when '/main', '/main/home'
+  $urlRouterProvider.otherwise '/main'
   return
 
 app.factory 'session', ->

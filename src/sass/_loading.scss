@@ -1,0 +1,54 @@
+.loading{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: pxTorem(-50px);
+	margin-left: pxTorem(-15px);
+	width: pxTorem(40px);
+	& > span{
+		display: inline-block;
+		width: pxTorem(10px);
+		height: pxTorem(10px);
+		border-radius: 50%;
+		background: #ccc;
+		-webkit-animation: beat 0.7s infinite linear;
+            animation: beat 0.7s infinite linear;
+    -webkit-animation-fill-mode: both;
+    			  animation-fill-mode: both;
+    &:nth-child(odd){
+    	animation-delay: 0s;
+    }
+    &:nth-child(even){
+    	animation-delay: .35s;
+    }
+	}
+}
+
+@-webkit-keyframes beat{
+  50%{
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+  }
+  100%{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-opacity: 1;
+    opacity: 1;
+  }
+}
+@keyframes beat{
+    50%{
+      -webkit-transform: scale(0.75);
+      transform: scale(0.75);
+      -webkit-opacity: 0.2;
+      opacity: 0.2;
+    }
+    100%{
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      -webkit-opacity: 1;
+      opacity: 1;
+    }
+}

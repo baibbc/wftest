@@ -8,14 +8,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles/libs.css">
+  <link rel="stylesheet" type="text/css" href="styles/app.css">
   <title>微數平台</title>
 </head>
 
-<body ng-app="myApp">
-  <div class="app" ui-view></div>
-  <div growl></div>
+<body class="aside" ng-app="wfApp">
+  <div ui-view>
+		<div class="loading">
+  		<span></span>
+  		<span></span>
+  		<span></span>
+  	</div>
+  </div>
   <script type="text/javascript" src="scripts/libs.js"></script>
   <script type="text/javascript" src="scripts/app.js"></script>
 </body>
-  
 </html>

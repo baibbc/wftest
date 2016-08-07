@@ -9,11 +9,14 @@ gulp.task('watch', function(){
     watch(config.jade.src, function(){
         gulp.start('jade', 'html');
     })
+    watch(config.sass.all, function(){
+        gulp.start('sass', 'html');
+    })
     watch(config.connect.reload, ['html']);
 })
 
 // Default task
 gulp.task('default', function() {
-    gulp.start('plugins', 'jade', 'coffee', 'watch', 'connect');
+    gulp.start('plugins', 'jade', 'sass', 'coffee', 'watch', 'connect');
 });
 

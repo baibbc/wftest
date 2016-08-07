@@ -17,7 +17,7 @@
     "gulp-connect": "^5.0.0",
     "gulp-filter": "^4.0.0",
     "gulp-jade": "^1.1.0",
-    "gulp-sass": "^2.3.2",
+    "gulp-sass-china": "^2.3.1",
     "gulp-watch": "^4.3.9",
     "main-bower-files": "^2.13.1",
     "require-dir": "^0.3.0"

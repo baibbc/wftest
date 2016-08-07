@@ -11,6 +11,15 @@ module.exports = {
     settings: {     //编译less过程需要的配置，可以为空
     }
   },
+  sass: {
+    all: src + "/sass/**/*.scss",  //所有less
+    src: src + "/sass/*.scss",   //需要编译的less
+    dest: dest + "/styles",     //输出目录
+    concat: 'app.css',
+    settings: {     //编译sass过程需要的配置，可以为空 :expanded or :nested or :compact or :compressed
+      outputStyle: 'compressed'
+    }
+  },
   jade: {
     src: src + '/jade/**/*.jade',
     dest: dest + '/tpls'

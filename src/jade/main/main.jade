@@ -1,5 +1,7 @@
-header.navbar.navbar-default.navbar-fixed-top
-  .container
-    .header(ng-include="'tpls/header/header.html'" ng-controller='headerCtrl')
-.container(style='margin-top:50px')
-  ui-view
+nav(ng-include="'tpls/nav/navbar.html'" ng-controller='navbarCtrl')
+.main-container
+	ui-view
+		.loading
+			span
+			span
+			span
