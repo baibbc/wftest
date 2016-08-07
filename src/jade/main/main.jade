@@ -1,7 +1,11 @@
 nav(ng-include="'tpls/nav/navbar.html'" ng-controller='navbarCtrl')
 .main-container
-	.loading(ng-if="loading")
-		span
-		span
-		span
-	ui-view
+  .loading(ng-if="loading")
+    span
+    span
+    span
+  .banner
+    video(src='images/side.mp4', autoplay, loop)
+    .layer-mask
+      footer.copy-right 版权所有©2015-2016 Wftest 
+  ui-view

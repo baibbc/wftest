@@ -7,7 +7,7 @@ app.run(function($rootScope, $state, $stateParams, $timeout) {});
 app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
   $urlRouterProvider.when('/main', '/main/home');
   $urlRouterProvider.otherwise('/main');
-  $httpProvider.interceptors.push('loading');
+  $httpProvider.interceptors.push('httpInterceptor');
 });
 
 app.factory('session', function() {
@@ -28,22 +28,49 @@ app.factory('session', function() {
   };
 });
 
-app.factory('loading', function($rootScope) {
-  var loadingMarker;
-  loadingMarker = {
-    request: function(config) {
-      $rootScope.loading = true;
-      console.log('config');
-      return config;
-    },
-    response: function(response) {
-      $rootScope.loading = false;
-      console.log(response);
-      return response;
-    }
-  };
-  return loadingMarker;
+app.factory('httpInterceptor', [
+  '$rootScope', '$q', '$injector', function($rootScope, $q, $injector) {
+    var httpInterceptor;
+    httpInterceptor = {
+      'responseError': function(response) {
+        return $q.reject(response);
+      },
+      'response': function(response) {
+        $rootScope.loading = false;
+        return response;
+      },
+      'request': function(config) {
+        $rootScope.loading = true;
+        return config;
+      },
+      'requestError': function(config) {
+        console.log('request err');
+        return $q.reject(config);
+      }
+    };
+    return httpInterceptor;
+  }
+]);
+
+app.config(function($stateProvider) {
+  return $stateProvider.state('main.about', {
+    url: '/about',
+    templateUrl: 'tpls/about/about.html',
+    controller: 'aboutCtrl'
+  });
 });
+
+app.controller('aboutCtrl', function($scope, $rootScope) {});
+
+app.config(function($stateProvider) {
+  return $stateProvider.state('main.comment', {
+    url: '/comment',
+    templateUrl: 'tpls/comment/comment.html',
+    controller: 'commentCtrl'
+  });
+});
+
+app.controller('commentCtrl', function($scope) {});
 
 app.config(function($stateProvider) {
   return $stateProvider.state('main.home', {
@@ -58,6 +85,16 @@ app.controller('homeCtrl', function($scope, $state, session) {
     title: 'wftest'
   };
 });
+
+app.config(function($stateProvider) {
+  return $stateProvider.state('main.link', {
+    url: '/link',
+    templateUrl: 'tpls/link/link.html',
+    controller: 'linkCtrl'
+  });
+});
+
+app.controller('linkCtrl', function($scope) {});
 
 app.config(function($stateProvider) {
   return $stateProvider.state('main', {
@@ -77,30 +114,12 @@ app.config(function($stateProvider) {
 
 app.controller('mainCtrl', function($scope, $rootScope, $http, $state, $location, $stateParams, session, person) {
   $scope.$on('$stateChangeStart', function() {
-    return console.log('state change');
+    return console.log('state change start');
   });
-  $scope.$on('$stateChangeSuccess', function() {
-    return console.log('state change success');
-  });
-  $scope.$on('$stateChangeError', function() {
-    return console.log('state change error');
-  });
-  $scope.$on('$viewContentLoading', function(event, viewConfig) {
-    return console.log(viewConfig);
-  });
-  return $scope.$on('$viewContentLoaded', function() {
-    return console.log('view content loaded');
-  });
+  $scope.$on('$stateChangeSuccess', function() {});
+  $scope.$on('$stateChangeError', function() {});
+  $scope.$on('$viewContentLoading', function(event, viewConfig) {});
+  return $scope.$on('$viewContentLoaded', function() {});
 });
 
 app.controller('navbarCtrl', function($scope) {});
-
-app.config(function($stateProvider) {
-  return $stateProvider.state('main.about', {
-    url: '/about',
-    templateUrl: 'tpls/about/about.html',
-    controller: 'aboutCtrl'
-  });
-});
-
-app.controller('aboutCtrl', function($scope, $rootScope) {});

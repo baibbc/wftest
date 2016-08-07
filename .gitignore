@@ -13,6 +13,7 @@ node_modules
 
 # Generated dependency files
 app/plugins.*
+app/images
 
 # JetBrains files
 *.iml

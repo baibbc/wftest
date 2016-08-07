@@ -1,3 +1,2 @@
 app.controller 'homeCtrl', ($scope, $state, session) ->
-	$scope.ui =
-		title: 'wftest'
+  $scope.ui = title: 'wftest'

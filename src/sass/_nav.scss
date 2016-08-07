@@ -8,7 +8,7 @@ nav{
   background:rgba(0,0,0,.8);
   font-size:pxTorem(15px);
   z-index:10;
-  @include prefixer('box-shadow', pxTorem(-2px) pxTorem(-2px) pxTorem(5px) rgba(0,0,0,.8) inset);
+  // @include prefixer('box-shadow', pxTorem(-2px) pxTorem(-2px) pxTorem(5px) rgba(0,0,0,.8) inset);
   @include prefixer('animation', fadeInLeft .5s ease-in-out 0s backwards);
   li{
     position:relative;
@@ -22,8 +22,8 @@ nav{
       position:absolute;
       top:0;
       left:0;
-      background-image:-webkit-linear-gradient(to left, #333, #555);
-      background-image:linear-gradient(to left, #333, #555);
+      background-image:-webkit-linear-gradient(to left, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+      background-image:linear-gradient(to left, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
     }
     &:last-child::before{
       top:auto;
@@ -31,17 +31,19 @@ nav{
     }
     &.selected{
       background:rgba(0,0,0,.5);
-      &::after{
-        content:'';
-        position:absolute;
-        width:0;
-        height:0;
-        border:pxTorem(10px) solid transparent;
-        border-left-color:$nav-active-color;
-        left:100%;
-        top:50%;
-        margin-top:pxTorem(-10px);
-        @include prefixer('animation', fadeInLeft .3s ease 0s backwards);
+      > a{
+        &::after{
+          content:'';
+          position:absolute;
+          width:0;
+          height:0;
+          border:pxTorem(10px) solid transparent;
+          border-left-color:$nav-active-color;
+          left:100%;
+          top:50%;
+          margin-top:pxTorem(-10px);
+          @include prefixer('animation', fadeInLeft .3s ease 0s backwards);
+        }
       }
     }
     > a{

@@ -6,7 +6,7 @@ app.run ($rootScope, $state, $stateParams, $timeout) ->
 app.config ($httpProvider, $stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.when '/main', '/main/home'
   $urlRouterProvider.otherwise '/main'
-  $httpProvider.interceptors.push 'loading'
+  $httpProvider.interceptors.push 'httpInterceptor'
   return
 
 app.factory 'session', ->
@@ -23,14 +23,22 @@ app.factory 'session', ->
       return window.sessionStorage.removeItem key
   }
 
-app.factory 'loading', ($rootScope) ->
-  loadingMarker = 
-    request: (config) ->
-      $rootScope.loading = true
-      console.log 'config'
-      config
-    response: (response) ->
-      $rootScope.loading = false
-      console.log response
-      response
-  loadingMarker
+app.factory 'httpInterceptor', [
+  '$rootScope'
+  '$q'
+  '$injector'
+  ($rootScope, $q, $injector) ->
+    httpInterceptor =
+      'responseError': (response) ->
+        $q.reject response
+      'response': (response) ->
+        $rootScope.loading = false
+        response
+      'request': (config) ->
+        $rootScope.loading = true
+        config
+      'requestError': (config) ->
+        console.log 'request err'
+        $q.reject config
+    httpInterceptor
+]
