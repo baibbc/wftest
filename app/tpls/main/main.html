@@ -1,1 +1,1 @@
-<nav ng-include="'tpls/nav/navbar.html'" ng-controller="navbarCtrl"></nav><div class="main-container"><ui-view><div class="loading"><span></span><span></span><span></span></div></ui-view></div>
+<nav ng-include="'tpls/nav/navbar.html'" ng-controller="navbarCtrl"></nav><div class="main-container"><div ng-if="loading" class="loading"><span></span><span></span><span></span></div><ui-view></ui-view></div>

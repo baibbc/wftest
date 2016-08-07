@@ -1,1 +1,1 @@
-app.controller 'aboutCtrl', ($scope) ->
+app.controller 'aboutCtrl', ($scope, $rootScope) ->

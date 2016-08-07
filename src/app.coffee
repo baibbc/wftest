@@ -3,9 +3,10 @@ app = angular.module 'wfApp', [
 ]
 app.run ($rootScope, $state, $stateParams, $timeout) ->
 
-app.config ($stateProvider, $urlRouterProvider) ->
+app.config ($httpProvider, $stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.when '/main', '/main/home'
   $urlRouterProvider.otherwise '/main'
+  $httpProvider.interceptors.push 'loading'
   return
 
 app.factory 'session', ->
@@ -21,3 +22,15 @@ app.factory 'session', ->
     remove: (key) ->
       return window.sessionStorage.removeItem key
   }
+
+app.factory 'loading', ($rootScope) ->
+  loadingMarker = 
+    request: (config) ->
+      $rootScope.loading = true
+      console.log 'config'
+      config
+    response: (response) ->
+      $rootScope.loading = false
+      console.log response
+      response
+  loadingMarker
